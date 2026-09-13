@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>競輪AI 本番システム</title>
+<style>
+:root{--bg:#07111f;--card:#101d2e;--line:#24354a;--text:#f4f7fb;--muted:#91a0b4;--green:#25c46b;--red:#ff5d65;--yellow:#f4c95d;--blue:#5ba8ff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0b1524);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}
+.wrap{max-width:720px;margin:auto;padding:16px 14px 40px}.head{padding:10px 2px 18px}.brand{font-size:24px;font-weight:800}.sub{color:var(--muted);font-size:12px;margin-top:4px}
+.status{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px;margin-bottom:12px}.status b{font-size:15px}.pill{display:inline-block;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;margin-left:7px}.pass{background:rgba(37,196,107,.15);color:var(--green)}.wait{background:rgba(244,201,93,.14);color:var(--yellow)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.metric{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}.metric .k{font-size:11px;color:var(--muted)}.metric .v{font-size:20px;font-weight:800;margin-top:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 0}.top{display:flex;justify-content:space-between;align-items:center}.venue{font-size:18px;font-weight:800}.rno{color:var(--muted);font-size:12px}.buy{color:var(--green);font-weight:900}.skip{color:var(--red);font-weight:900}.ticket{margin-top:14px;padding:13px;border-radius:12px;background:#0a1625}.ticket .type{font-size:12px;color:var(--muted)}.ticket .combo{font-size:24px;font-weight:900;letter-spacing:1px;margin-top:4px}.rows{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.row{font-size:12px;color:var(--muted)}.row b{display:block;color:var(--text);font-size:14px;margin-top:2px}.note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:12px}.footer{font-size:10px;color:#708096;text-align:center;margin-top:24px}
+button{width:100%;border:0;border-radius:12px;background:#17304d;color:#dcecff;padding:12px;font-weight:800;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="brand">競輪AI 本番システム</div>
+    <div class="sub">7車立て専用 / 365日ローリング / 102%ゲート</div>
+  </div>
+
+  <div class="status">
+    <b>本日の判定</b><span class="pill wait">データ接続準備中</span>
+    <div class="note">当日の出走表・オッズを確認できるまでは、買い目を推測して表示しません。</div>
+  </div>
+
+  <div class="grid">
+    <div class="metric"><div class="k">ライブ学習期間</div><div class="v">365日</div></div>
+    <div class="metric"><div class="k">最低合格ROI</div><div class="v">102%</div></div>
+    <div class="metric"><div class="k">対象</div><div class="v">7車のみ</div></div>
+    <div class="metric"><div class="k">状態</div><div class="v">準備中</div></div>
+  </div>
+
+  <div class="card">
+    <div class="top"><div><span class="venue">本日の推奨</span></div><div class="skip">見送り</div></div>
+    <div class="ticket">
+      <div class="type">買い目</div>
+      <div class="combo">データ取得後に表示</div>
+    </div>
+    <div class="rows">
+      <div class="row">2車複<b>—</b></div>
+      <div class="row">2車単<b>—</b></div>
+      <div class="row">ワイド<b>—</b></div>
+      <div class="row">3連複<b>—</b></div>
+      <div class="row">3連単<b>—</b></div>
+      <div class="row">推奨金額<b>—</b></div>
+    </div>
+    <div class="note">102%基準を満たす検証結果と当日データが揃うまで、無理に買い目を出さない設計です。</div>
+  </div>
+
+  <div class="card">
+    <div class="top"><div class="venue">検証ルール</div><div class="pill pass">固定</div></div>
+    <div class="note">
+      ・過去365日だけをライブ学習に使用<br>
+      ・過去データは時系列ウォークフォワードで検証<br>
+      ・未来の結果・払戻・オッズを学習特徴量に使用しない<br>
+      ・十分な検証件数がない戦略は採用しない<br>
+      ・基準未達なら「見送り」
+    </div>
+  </div>
+
+  <button onclick="location.reload()">画面を更新</button>
+  <div class="footer">この画面はGitHub Pages公開用の入口です。自動データ取得・予測機能は次の工程で接続します。</div>
+</div>
+</body>
+</html>
